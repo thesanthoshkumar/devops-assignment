@@ -41,6 +41,7 @@ jobs:
       contents: read
       id-token: write
     runs-on: ["self-hosted", "test-on-aks"]
+    environment: test-on-aks
     # needs: [buildImage]
     steps:
       # Checks out the repository this file is in

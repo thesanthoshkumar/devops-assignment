@@ -60,12 +60,13 @@ jobs:
       # - name: docker build
       #   run: docker buildx -t test .
         
-      - uses: docker/build-push-action@v5
-        name: Build and push
-        with:
-          push: false
-          tags: user/app:latest
-
+      - name: Step
+        env:
+          SHA: ${GITHUB_SHA:0:7}
+        run: |-
+          echo ${GITHUB_SHA:0:7}
+          echo $SHA
+      
       # # Use kubelogin to configure your kubeconfig for Azure auth
       # - name: Set up kubelogin for non-interactive login
       #   uses: azure/use-kubelogin@v1

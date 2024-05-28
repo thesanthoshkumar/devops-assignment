@@ -40,7 +40,8 @@ jobs:
       actions: read
       contents: read
       id-token: write
-    runs-on: ["self-hosted", "test-on-aks"]
+    # runs-on: ["self-hosted", "test-on-aks"]
+    runs-on: ubuntu-latest
     environment: test-on-aks
     # needs: [buildImage]
     steps:

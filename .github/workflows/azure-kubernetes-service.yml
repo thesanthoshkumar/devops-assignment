@@ -25,14 +25,17 @@ jobs:
       matrix:
         LABEL: [ "test", "dev" ]
     environment: test-on-aks
-    if: ${{ matrix.LABEL == 'test' }}
+
     # needs: [buildImage]
     steps:
       - uses: actions/checkout@v4
       - name: test
-        run: echo "This is a message for the custom runner"
+        run: |-
+          echo "This is a message for the custom runner"
+          echo "LABELS are ${{ matrix.LABEL }}"
         
       - name: Step
+        if: ${{ matrix.LABEL == 'test' }}
         env:
           SHA: ${GITHUB_SHA:0:7}
           SECTET: ${{secrets.TEST_PASSWORD}}

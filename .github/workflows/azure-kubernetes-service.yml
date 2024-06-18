@@ -23,14 +23,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        LABEL: ${{env.LABEL}}
+        LABEL: [ '${{env.LABEL}}' ]
     environment: test-on-aks
     if: ${{matrix.LABEL}} == 'test'
     # needs: [buildImage]
     steps:
       - uses: actions/checkout@v4
       - name: test
-        run: echo "this is a message for the custom runner"
+        run: echo "This is a message for the custom runner"
         
       - name: Step
         env:

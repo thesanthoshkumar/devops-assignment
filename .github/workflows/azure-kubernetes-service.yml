@@ -25,7 +25,7 @@ jobs:
       matrix:
         LABEL: [ "test", "dev" ]
     environment: test-on-aks
-    if: ${{ matrix.LABEL }} == 'test'
+    if: ${{ matrix.LABEL == 'test' }}
     # needs: [buildImage]
     steps:
       - uses: actions/checkout@v4

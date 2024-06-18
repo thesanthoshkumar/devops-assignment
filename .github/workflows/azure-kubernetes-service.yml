@@ -23,9 +23,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        LABEL: ["test"]
+        LABEL: [ "test", "dev" ]
     environment: test-on-aks
-    if: ${{matrix.LABEL}} == 'test'
+    if: ${{ matrix.LABEL }} == 'test'
     # needs: [buildImage]
     steps:
       - uses: actions/checkout@v4
@@ -43,27 +43,5 @@ jobs:
           echo TEST_PASSOWRD=$SECTET >> dev.env
           echo $TEST_PASSOWRD
           cat dev.env
-          echo ${{matrix.LABEL}}
-      # # Use kubelogin to configure your kubeconfig for Azure auth
-      # - name: Set up kubelogin for non-interactive login
-      #   uses: azure/use-kubelogin@v1
-      #   with:
-      #     kubelogin-version: 'v0.0.25'
+          echo ${{ matrix.LABEL }}
 
-      # # Retrieves your Azure Kubernetes Service cluster's kubeconfig file
-      # - name: Get K8s context
-      #   uses: azure/aks-set-context@v3
-      #   with:
-      #     resource-group: ${{ env.RESOURCE_GROUP }}
-      #     cluster-name: ${{ env.CLUSTER_NAME }}
-      #     admin: 'false'
-      #     use-kubelogin: 'true'
-
-      # # Deploys application based on given manifest file
-      # - name: Deploys application
-      #   uses: Azure/k8s-deploy@v4
-      #   with:
-      #     action: deploy
-      #     manifests: ${{ env.DEPLOYMENT_MANIFEST_PATH }}
-      #     images: |
-      #       ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }}

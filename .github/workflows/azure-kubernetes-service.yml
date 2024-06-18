@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        LABEL: ${{env.LANEL}}
+        LABEL: ${{env.LABEL}}
     environment: test-on-aks
     if: ${{matrix.LABEL}} == 'test'
     # needs: [buildImage]

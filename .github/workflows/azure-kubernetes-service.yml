@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        LABEL: [ "test", "dev" ]
+        LABEL: [ "engine", "backend" ]
     environment: test-on-aks
 
     # needs: [buildImage]
@@ -47,4 +47,8 @@ jobs:
           echo $TEST_PASSOWRD
           cat dev.env
           echo ${{ matrix.LABEL }}
+      - name: testing-deploy
+        uses: ./.github/action.yaml
+        with:
+          LABEL: ${{matrix.LABEL}}
 

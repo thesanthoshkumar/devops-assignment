@@ -48,7 +48,7 @@ jobs:
           cat dev.env
           echo ${{ matrix.LABEL }}
       - name: testing-deploy
-        uses: .github/action.yaml
+        uses: ${{github.workspace}}/.github/action.yaml
         with:
           LABEL: ${{matrix.LABEL}}
 

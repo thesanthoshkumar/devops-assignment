@@ -1,0 +1,20 @@
+name: CD Deployment
+description: "CD Deployment of Insights Copilot UI API Function and Engine"
+inputs:
+  LABEL:
+    description: "LABEL of the Application which needs to Deploy"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+    - name: Testing
+      if: ${{inputs.LABEL}} == 'engine'
+      run: |-
+        echo "Deploying to Engine"
+    - name: Testing-2
+      if: ${{inputs.LABEL}} == 'backend'
+      run: |-
+        echo "Deploying to Backend"
+    

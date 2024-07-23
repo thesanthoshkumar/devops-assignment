@@ -29,26 +29,30 @@ jobs:
     # needs: [buildImage]
     steps:
       - uses: actions/checkout@v4
-      - name: test
-        run: |-
-          echo "This is a message for the custom runner"
-          echo "LABELS are ${{ matrix.LABEL }}"
-        
-      - name: Step
-        if: ${{ matrix.LABEL == 'test' }}
-        env:
-          SHA: ${GITHUB_SHA:0:7}
-          SECTET: ${{secrets.TEST_PASSWORD}}
-        run: |-
-          echo ${GITHUB_SHA:0:7}
-          echo $SHA
-          touch dev.env
-          echo TEST_PASSOWRD=$SECTET >> dev.env
-          echo $TEST_PASSOWRD
-          cat dev.env
-          echo ${{ matrix.LABEL }}
-      - name: testing-deploy
-        uses: ${{github.workspace}}/.github/action.yaml
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v2
         with:
-          LABEL: ${{matrix.LABEL}}
+          # Required mail server address if not connection_url:
+          server_address: smtp.sendgrid.net
+          # Server port, default 25:
+          server_port: 587
+            #Optional whether this connection use TLS (default is true if server_port is 465)
+          secure: false
+          # Optional (recommended) mail server username:
+          username: ${{secrets.USER_EMAIL}}
+            #Optional (recommended) mail server password:
+          password: $ {{secrets.USER_PASSWORD}}
+          # Required mail subject:
+          subject: GitHub Actions job result
+          # Required recipients' addresses:
+          to: santhosh.kumar-ext@ab-inbev.com
+          # Required sender full name (address can be skipped):
+          from: Santhosh # <nikitha.r@ab-inbev.com>
+          # Optional plain body:
+          body: Build job of ${{github.repository}} completed successfully!
+          # Optional unsigned/invalid certificates allowance:
+          ignore_cert: true
+          # Optional attachments:
+          # Optional priority: 'high', 'normal' (default) or 'low'
+          priority: low
 
